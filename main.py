@@ -22,6 +22,8 @@ from pydownloader.downloader import Downloader
 import shorturl
 import xdlink
 
+accesslist = ['Yama_Tsukami']
+
 async def get_root(username):
     if os.path.isdir(config.ROOT_PATH+username)==False:
         os.mkdir(config.ROOT_PATH+username)
@@ -164,7 +166,8 @@ async def onmessage(bot:TelegramClient,ev: NewMessage.Event,loop,ret=False):
     username = ev.message.chat.username
     text = ev.message.text
 
-    if username not in config.ACCES_USERS:
+    #if username not in config.ACCES_USERS:
+     if username not in accesslist:
         await bot.send_message(ev.chat.id,'🛑No Tiene Acceso🛑')
         return
 
@@ -212,7 +215,11 @@ async def onmessage(bot:TelegramClient,ev: NewMessage.Event,loop,ret=False):
         reply += '<a href="https://t.me/obisoftt">Obisoft Dev Telegram</a>'
         message = await bot.send_message(ev.chat.id,reply,parse_mode='html')
         pass
-
+    if '/add' in text:
+        accesslist.append(str(text.split(' ')[1]))
+        message = await bot.send_message(ev.chat.id,'add')
+        message = await bot.send_message(ev.chat.id,str(accesslist))
+    
     if 'http' in text:
         message = await bot.send_message(ev.chat.id,'⏳Procesando Enlace...🔗')
         dl = Downloader(config.ROOT_PATH + username + '/')
