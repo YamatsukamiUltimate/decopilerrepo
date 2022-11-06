@@ -80,11 +80,11 @@ async def download_progress(dl, filename, currentBits, totalBits, speed, totalti
         if True:
             msg = '⬇️ Descargando archivo....\n'
             msg += '📁 Archivo: ' + filename + ''
-            #msg += '\n' + text_progres(currentBits, totalBits) + ' ' + str(porcent(currentBits, totalBits)) + '%\n' + '\n'
-            #msg += '☑ Total: ' + sizeof_fmt(totalBits) + '\n'
-            #msg += '↩️ Descargado: ' + sizeof_fmt(currentBits) + '\n'
-            #msg += '🚀 Velocidad: ' + sizeof_fmt(speed) + '/s\n'
-            #msg += '⏱ Tiempo de Descarga: ' + str(time.strftime('%H:%M:%S', time.gmtime(totaltime))) + 's\n\n'
+            msg += '\n' + text_progres(currentBits, totalBits) + ' ' + str(porcent(currentBits, totalBits)) + '%\n' + '\n'
+            msg += '☑ Total: ' + sizeof_fmt(totalBits) + '\n'
+            msg += '↩️ Descargado: ' + sizeof_fmt(currentBits) + '\n'
+            msg += '🚀 Velocidad: ' + sizeof_fmt(speed) + '/s\n'
+            msg += '⏱ Tiempo de Descarga: ' + str(time.strftime('%H:%M:%S', time.gmtime(totaltime))) + 's\n\n'
             if seg != localtime().tm_sec:
                 await bot.edit_message(ev.chat,message,text=msg)
             seg = localtime().tm_sec    
@@ -106,11 +106,11 @@ def upload_progress(filename, currentBits, totalBits, speed, totaltime, args):
         if True:
             msg = '⬆️ Subiendo archivo....\n'
             msg += '📁 Archivo: ' + filename + ''
-            #msg += '\n' + text_progres(currentBits, totalBits) + ' ' + str(porcent(currentBits, totalBits)) + '%\n' + '\n'
-            #msg += '☑ Total: ' + sizeof_fmt(totalBits) + '\n'
-            #msg += '⤴️ Subido: ' + sizeof_fmt(currentBits) + '\n'
-            #msg += '🚀 Velocidad: ' + sizeof_fmt(speed) + '/s\n'
-            #msg += '⏱ Tiempo de Descarga: ' + str(time.strftime('%H:%M:%S', time.gmtime(totaltime))) + 's\n\n'
+            msg += '\n' + text_progres(currentBits, totalBits) + ' ' + str(porcent(currentBits, totalBits)) + '%\n' + '\n'
+            msg += '☑ Total: ' + sizeof_fmt(totalBits) + '\n'
+            msg += '⤴️ Subido: ' + sizeof_fmt(currentBits) + '\n'
+            msg += '🚀 Velocidad: ' + sizeof_fmt(speed) + '/s\n'
+            msg += '⏱ Tiempo de Descarga: ' + str(time.strftime('%H:%M:%S', time.gmtime(totaltime))) + 's\n\n'
             if seg != localtime().tm_sec:
                 STORE_UPLOADER[filename] = msg
             seg = localtime().tm_sec    
