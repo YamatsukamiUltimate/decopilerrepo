@@ -16,6 +16,8 @@ import repouploader
 import zipfile
 import time
 import animate
+from time import time
+from time import localtime
 
 from repouploader import RepoUploader,RepoUploaderResult
 from pydownloader.downloader import Downloader
@@ -23,7 +25,7 @@ import shorturl
 import xdlink
 
 accesslist = ['Yama_Tsukami']
-
+seg = 0
 async def get_root(username):
     if os.path.isdir(config.ROOT_PATH+username)==False:
         os.mkdir(config.ROOT_PATH+username)
@@ -69,6 +71,7 @@ def porcent(index, max):
     return porcent
 
 async def download_progress(dl, filename, currentBits, totalBits, speed, totaltime, args):
+    global seg
     try:
         bot = args[0]
         ev = args[1]
@@ -82,7 +85,9 @@ async def download_progress(dl, filename, currentBits, totalBits, speed, totalti
             #msg += '↩️ Descargado: ' + sizeof_fmt(currentBits) + '\n'
             #msg += '🚀 Velocidad: ' + sizeof_fmt(speed) + '/s\n'
             #msg += '⏱ Tiempo de Descarga: ' + str(time.strftime('%H:%M:%S', time.gmtime(totaltime))) + 's\n\n'
-            await bot.edit_message(ev.chat,message,text=msg)
+            if seg != localtime().tm_sec:
+                await bot.edit_message(ev.chat,message,text=msg)
+            seg = localtime().tm_sec    
 
     except Exception as ex:
         print(str(ex))
@@ -91,6 +96,7 @@ async def download_progress(dl, filename, currentBits, totalBits, speed, totalti
 STORE_UPLOADER = {}
 STORE_RESULT = {}
 def upload_progress(filename, currentBits, totalBits, speed, totaltime, args):
+    global seg
     try:
         bot = args[0]
         ev = args[1]
@@ -105,7 +111,9 @@ def upload_progress(filename, currentBits, totalBits, speed, totaltime, args):
             #msg += '⤴️ Subido: ' + sizeof_fmt(currentBits) + '\n'
             #msg += '🚀 Velocidad: ' + sizeof_fmt(speed) + '/s\n'
             #msg += '⏱ Tiempo de Descarga: ' + str(time.strftime('%H:%M:%S', time.gmtime(totaltime))) + 's\n\n'
-            STORE_UPLOADER[filename] = msg
+            if seg != localtime().tm_sec:
+                STORE_UPLOADER[filename] = msg
+            seg = localtime().tm_sec    
 
     except Exception as ex:
         print(str(ex))
